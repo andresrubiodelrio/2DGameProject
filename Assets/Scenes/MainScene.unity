@@ -375,9 +375,25 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Move
       m_Flags: 8
+    - m_Name: left
+      m_Id: bb75580e-cb6b-4332-93c4-adf236241708
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
     - m_Name: right
       m_Id: 64aa8dc5-f9dd-4bfa-bf64-d96116764ca8
       m_Path: <Keyboard>/rightArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: right
+      m_Id: fa5b6d5d-be1b-4ba7-b46b-5995699954ef
+      m_Path: <Keyboard>/d
       m_Interactions: 
       m_Processors: 
       m_Groups: 
