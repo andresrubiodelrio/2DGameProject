@@ -164,6 +164,8 @@ GameObject:
   - component: {fileID: 170035905}
   - component: {fileID: 170035904}
   - component: {fileID: 170035907}
+  - component: {fileID: 170035908}
+  - component: {fileID: 170035910}
   m_Layer: 0
   m_Name: player-idle-1
   m_TagString: Untagged
@@ -317,13 +319,73 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170035902}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c071d96ca559d33459817f1e5d64a7c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoJugador
   velocidad: 3
   accionMover: {fileID: 4665504359473097830, guid: 211d2596b11d5084fbb1fa2b670a9dc6, type: 3}
+--- !u!114 &170035908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170035902}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d94a8b515f3fa547911a1063a88fb5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControlJugador
+  velocidad: 3
+--- !u!114 &170035910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170035902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ceda138afca4044b939bdd00c658a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControlJugadorInputSystemNew
+  MoveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: Vector2
+    m_Id: f9fa74f4-b231-4e1c-9d23-90305b4bc193
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: 97d94df3-da20-4027-96b4-eef9c6445f0b
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 4
+    - m_Name: left
+      m_Id: b4b4474c-9ba6-4c8d-bc24-a2cdd01f590a
+      m_Path: <Keyboard>/leftArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 64aa8dc5-f9dd-4bfa-bf64-d96116764ca8
+      m_Path: <Keyboard>/rightArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    m_Flags: 0
+    m_Priority: 0
+  velocity: 3
 --- !u!1 &216487461
 GameObject:
   m_ObjectHideFlags: 0
