@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MovimientoJugador : MonoBehaviour
+public class MovimientoJugadorSaltoMetodo1 : MonoBehaviour
 {
     [Header("Movimiento")]
     public float velocidad = 3f;
@@ -12,8 +12,11 @@ public class MovimientoJugador : MonoBehaviour
     [Header("Salto")]
     public float impulso = 5f; //fuerza aplicada para saltar
     [SerializeField] private InputActionReference accionSaltar;
+
+    [Header("Chequeo de Suelo")]
+    [SerializeField] private Transform groundCheck;     // El objeto vacío en los pies
+    [SerializeField] private float groundDistance = 0.2f; // Radio de la esfera
     [SerializeField] private LayerMask groundMask;       // Selecciona la capa "Suelo" aquí
-    //[SerializeField] private float longRaycast;
 
 
     /*
@@ -35,7 +38,7 @@ public class MovimientoJugador : MonoBehaviour
     private Vector2 entradaMovimiento;
     private Boolean saltoPendiente;
     private bool isGrounded;
-    private float longRaycast = 1.6f;
+
 
 
 
@@ -58,7 +61,7 @@ public class MovimientoJugador : MonoBehaviour
 
         if (accionSaltar==null || accionSaltar.action == null)
         {
-            Debug.LogError("Asigna Acción Jugador/Saltar en Acción Saltar.", this);
+            Debug.LogError("Acción Saltar.", this);
             enabled = false;
             return;
         }
@@ -93,29 +96,14 @@ public class MovimientoJugador : MonoBehaviour
     {
         entradaMovimiento = accionMover.action.ReadValue<Vector2>();
 
-        //Lanzamos un rayo hacia abajo desde el centro del personaje.
-        // transform.position: Origen del rayo.
-        // Vector2.down: Dirección del rayo hacia abajo.
-        // 1.1f: Longitud del rayo (ajústala según el tamaño de tu Sprite/Collider).
-        // groundMask: Capa del suelo para ignorar al propio jugador.
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, longRaycast, groundMask);
-
-        // Si el rayo impactó contra algo en esa capa, 'hit.collider' no será nulo
-        isGrounded = hit.collider != null;
-
-        // 2. DIBUJAR EL RAYO VISUAL EN EL EDITOR
-        // Definimos el color: Verde si toca el suelo, Rojo si está en el aire
-        Color colorDelRayo = isGrounded ? Color.green : Color.red;
-
-        // Dibujamos la línea en la pestaña Scene
-        // Parámetros: Origen, Vector de dirección (Dirección * Longitud), Color
-        Debug.DrawRay(transform.position, Vector2.down * longRaycast, colorDelRayo);
-
-        //Debug.Log("Está tocando el suelo (Raycast 2D): " + isGrounded);
+        // Lanzamos la esfera invisible. Si colisiona con la capa seleccionada, devuelve true.
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundDistance, groundMask);
 
         /*  La variable saltoPendiente actúa como una nota que queda escrita hasta que FixedUpdate la consume. 
          *  Si entre dos pasos físicos hay un fotograma que detecta la pulsación y otro que no la detecta, la nota sigue siendo verdadera.
          */
+        Debug.Log("Está tocando el suelo: " + isGrounded);
+
         if (accionSaltar.action.WasPressedThisFrame() && isGrounded)
         {
             saltoPendiente = true;
@@ -138,5 +126,15 @@ public class MovimientoJugador : MonoBehaviour
 
         //Como el salto ya ha sido atendido, deja de estar pendiente.
         saltoPendiente = false;
+    }
+
+    // Opcional: Dibuja la esfera en el editor de Unity para poder calibrar el tamaño visualmente
+    private void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(groundCheck.position, groundDistance);
+        }
     }
 }
