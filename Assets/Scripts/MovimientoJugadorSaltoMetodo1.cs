@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class MovimientoJugadorSaltoMetodo1 : MonoBehaviour
 {
     [Header("Movimiento")]
@@ -10,7 +11,7 @@ public class MovimientoJugadorSaltoMetodo1 : MonoBehaviour
     [SerializeField] private InputActionReference accionMover;
 
     [Header("Salto")]
-    public float impulso = 5f; //fuerza aplicada para saltar
+    public float fuerzoSalto = 5f; //fuerza aplicada para saltar
     [SerializeField] private InputActionReference accionSaltar;
 
     [Header("Chequeo de Suelo")]
@@ -36,7 +37,7 @@ public class MovimientoJugadorSaltoMetodo1 : MonoBehaviour
 
     private Rigidbody2D fisica;
     private Vector2 entradaMovimiento;
-    private Boolean saltoPendiente;
+    private bool saltoPendiente;
     private bool isGrounded;
 
 
@@ -121,7 +122,7 @@ public class MovimientoJugadorSaltoMetodo1 : MonoBehaviour
         //Vector2.up es (0,1)
         if (saltoPendiente)
         {
-            fisica.AddForce(Vector2.up * impulso, ForceMode2D.Impulse);
+            fisica.AddForce(Vector2.up * fuerzoSalto, ForceMode2D.Impulse);
         }
 
         //Como el salto ya ha sido atendido, deja de estar pendiente.

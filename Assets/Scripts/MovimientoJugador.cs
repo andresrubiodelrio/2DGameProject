@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class MovimientoJugador : MonoBehaviour
 {
     [Header("Movimiento")]
@@ -10,7 +11,7 @@ public class MovimientoJugador : MonoBehaviour
     [SerializeField] private InputActionReference accionMover;
 
     [Header("Salto")]
-    public float impulso = 5f; //fuerza aplicada para saltar
+    public float fuerzoSalto = 5f; //fuerza aplicada para saltar
     [SerializeField] private InputActionReference accionSaltar;
     [SerializeField] private LayerMask groundMask;       // Selecciona la capa "Suelo" aquí
     //[SerializeField] private float longRaycast;
@@ -133,7 +134,7 @@ public class MovimientoJugador : MonoBehaviour
         //Vector2.up es (0,1)
         if (saltoPendiente)
         {
-            fisica.AddForce(Vector2.up * impulso, ForceMode2D.Impulse);
+            fisica.AddForce(Vector2.up * fuerzoSalto, ForceMode2D.Impulse);
         }
 
         //Como el salto ya ha sido atendido, deja de estar pendiente.
